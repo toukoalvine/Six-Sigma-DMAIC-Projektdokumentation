@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six Sigma DMAIC Projekt-Dokumentationspaket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #3498db;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #2980b9;
+        }
+
+        .tab-content {
+            padding: 30px;
+            min-height: 500px;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .sipoc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .sipoc-table th,
+        .sipoc-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .sipoc-table th {
+            background: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        .sipoc-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .fishbone-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .fishbone-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ctq-tree {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .ctq-level {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .ctq-box {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 10px;
+            min-width: 120px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .ctq-box::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: #3498db;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-color: #27ae60;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #f39c12;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-color: #3498db;
+        }
+
+        .report-preview {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Six Sigma DMAIC Projekt-Dokumentationspaket</h1>
+            <p>Komplette Vorlage für Green & Black Belt Projekte</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('define')">Define</button>
+            <button class="nav-tab" onclick="showTab('measure')">Measure</button>
+            <button class="nav-tab" onclick="showTab('analyze')">Analyze</button>
+            <button class="nav-tab" onclick="showTab('improve')">Improve</button>
+            <button class="nav-tab" onclick="showTab('control')">Control</button>
+            <button class="nav-tab" onclick="showTab('report')">Report</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- DEFINE Phase -->
+            <div id="define" class="tab-pane active">
+                <h2 class="section-title">Define Phase</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Projekt-Grunddaten</h3>
+                        <div class="form-group">
+                            <label>Projektname:</label>
+                            <input type="text" id="projectName" placeholder="Ihr Projektname">
+                        </div>
+                        <div class="form-group">
+                            <label>Champion:</label>
+                            <input type="text" id="champion" placeholder="Name des Champions">
+                        </div>
+                        <div class="form-group">
+                            <label>Belt:</label>
+                            <select id="belt">
+                                <option value="">Auswählen...</option>
+                                <option value="green">Green Belt</option>
+                                <option value="black">Black Belt</option>
+                                <option value="master">Master Black Belt</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Startdatum:</label>
+                            <input type="date" id="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Geplantes Enddatum:</label>
+                            <input type="date" id="endDate">
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Problem Statement</h3>
+                        <div class="form-group">
+                            <label>Problembeschreibung:</label>
+                            <textarea id="problemStatement" placeholder="Beschreiben Sie das Problem (Was, Wann, Wo, Wie viel)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Zielsetzung:</label>
+                            <textarea id="objective" placeholder="Messbare Ziele definieren"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Projektscope:</label>
+                            <textarea id="scope" placeholder="Was ist eingeschlossen/ausgeschlossen"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>SIPOC Diagramm</h3>
+                    <button class="btn btn-primary" onclick="addSipocRow()">Zeile hinzufügen</button>
+                    <table class="sipoc-table" id="sipocTable">
+                        <thead>
+                            <tr>
+                                <th>Suppliers</th>
+                                <th>Inputs</th>
+                                <th>Process</th>
+                                <th>Outputs</th>
+                                <th>Customers</th>
+                                <th>Aktion</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sipocBody">
+                            <tr>
+                                <td><input type="text" placeholder="Lieferant"></td>
+                                <td><input type="text" placeholder="Input"></td>
+                                <td><input type="text" placeholder="Prozess"></td>
+                                <td><input type="text" placeholder="Output"></td>
+                                <td><input type="text" placeholder="Kunde"></td>
+                                <td><button class="btn btn-danger" onclick="removeSipocRow(this)">Entfernen</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>CTQ Tree (Critical to Quality)</h3>
+                    <div class="ctq-tree">
+                        <div class="ctq-level">
+                            <div class="ctq-box">
+                                <input type="text" id="ctqNeed" placeholder="Kundenbedürfnis" style="border:none;background:transparent;text-align:center;font-weight:600;">
+                            </div>
+                        </div>
+                        <div class="ctq-level">
+                            <div class="ctq-box">
+                                <input type="text" id="ctqDriver1" placeholder="Treiber 1" style="border:none;background:transparent;text-align:center;font-weight:600;">
+                            </div>
+                            <div class="ctq-box">
+                                <input type="text" id="ctqDriver2" placeholder="Treiber 2" style="border:none;background:transparent;text-align:center;font-weight:600;">
+                            </div>
+                        </div>
+                        <div class="ctq-level">
+                            <div class="ctq-box">
+                                <input type="text" id="ctqReq1" placeholder="Anforderung 1" style="border:none;background:transparent;text-align:center;font-weight:600;">
+                            </div>
+                            <div class="ctq-box">
+                                <input type="text" id="ctqReq2" placeholder="Anforderung 2" style="border:none;background:transparent;text-align:center;font-weight:600;">
+                            </div>
+                            <div class="ctq-box">
+                                <input type="text" id="ctqReq3" placeholder="Anforderung 3" style="border:none;background:transparent;text-align:center;font-weight:600;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MEASURE Phase -->
+            <div id="measure" class="tab-pane">
+                <h2 class="section-title">Measure Phase</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Metriken Definition</h3>
+                        <div class="form-group">
+                            <label>Primäre Metrik:</label>
+                            <input type="text" id="primaryMetric" placeholder="Y = Hauptmessgröße">
+                        </div>
+                        <div class="form-group">
+                            <label>Sekundäre Metriken:</label>
+                            <textarea id="secondaryMetrics" placeholder="Weitere wichtige Kennzahlen"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Datenquelle:</label>
+                            <input type="text" id="dataSource" placeholder="Wo werden die Daten gesammelt?">
+                        </div>
+                        <div class="form-group">
+                            <label>Stichprobengröße:</label>
+                            <input type="number" id="sampleSize" placeholder="Anzahl der Messungen">
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Baseline Messung</h3>
+                        <div class="form-group">
+                            <label>Aktueller Sigma Level:</label>
+                            <input type="number" id="currentSigma" step="0.1" placeholder="3.4">
+                        </div>
+                        <div class="form-group">
+                            <label>DPMO (Defects Per Million Opportunities):</label>
+                            <input type="number" id="dpmo" placeholder="66807">
+                        </div>
+                        <div class="form-group">
+                            <label>Prozessleistung (Cp):</label>
+                            <input type="number" id="cp" step="0.01" placeholder="1.0">
+                        </div>
+                        <div class="form-group">
+                            <label>Prozessleistung (Cpk):</label>
+                            <input type="number" id="cpk" step="0.01" placeholder="1.0">
+                        </div>
+                        <button class="btn btn-primary" onclick="calculateSigmaLevel()">Sigma Level berechnen</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Messsystem Analyse (MSA)</h3>
+                    <div class="grid">
+                        <div>
+                            <div class="form-group">
+                                <label>Gage R&R Studie:</label>
+                                <select id="gageStudy">
+                                    <option value="">Status auswählen...</option>
+                                    <option value="passed">Bestanden (&lt;10%)</option>
+                                    <option value="marginal">Grenzwertig (10-30%)</option>
+                                    <option value="failed">Nicht bestanden (&gt;30%)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Reproduzierbarkeit (%):</label>
+                                <input type="number" id="reproducibility" step="0.1" placeholder="5.2">
+                            </div>
+                            <div class="form-group">
+                                <label>Wiederholbarkeit (%):</label>
+                                <input type="number" id="repeatability" step="0.1" placeholder="3.8">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="alert alert-info">
+                                <strong>MSA Bewertung:</strong><br>
+                                <span id="msaResult">Bitte Werte eingeben für automatische Bewertung</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Datensammlung Plan</h3>
+                    <div class="form-group">
+                        <label>Sammlungsperiode:</label>
+                        <input type="text" id="collectionPeriod" placeholder="z.B. 4 Wochen">
+                    </div>
+                    <div class="form-group">
+                        <label>Verantwortlicher:</label>
+                        <input type="text" id="dataCollector" placeholder="Name der verantwortlichen Person">
+                    </div>
+                    <div class="form-group">
+                        <label>Sammlungsfrequenz:</label>
+                        <select id="collectionFrequency">
+                            <option value="">Auswählen...</option>
+                            <option value="hourly">Stündlich</option>
+                            <option value="daily">Täglich</option>
+                            <option value="weekly">Wöchentlich</option>
+                            <option value="monthly">Monatlich</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ANALYZE Phase -->
+            <div id="analyze" class="tab-pane">
+                <h2 class="section-title">Analyze Phase</h2>
+                
+                <div class="card">
+                    <h3>Ursache-Wirkungs-Diagramm (Fischgrätendiagramm)</h3>
+                    <div class="form-group">
+                        <label>Problemstellung:</label>
+                        <input type="text" id="fishboneProblem" placeholder="Hauptproblem definieren">
+                    </div>
+                    <div class="fishbone-container">
+                        <svg class="fishbone-svg" id="fishboneSvg" viewBox="0 0 800 400">
+                            <!-- Hauptgräte -->
+                            <line x1="100" y1="200" x2="700" y2="200" stroke="#2c3e50" stroke-width="3"/>
+                            <polygon points="700,200 680,190 680,210" fill="#2c3e50"/>
+                            
+                            <!-- Hauptkategorien -->
+                            <line x1="200" y1="200" x2="150" y2="150" stroke="#3498db" stroke-width="2"/>
+                            <text x="120" y="140" text-anchor="middle" font-size="12" font-weight="bold">Mensch</text>
+                            
+                            <line x1="200" y1="200" x2="150" y2="250" stroke="#3498db" stroke-width="2"/>
+                            <text x="120" y="265" text-anchor="middle" font-size="12" font-weight="bold">Maschine</text>
+                            
+                            <line x1="400" y1="200" x2="350" y2="150" stroke="#3498db" stroke-width="2"/>
+                            <text x="320" y="140" text-anchor="middle" font-size="12" font-weight="bold">Material</text>
+                            
+                            <line x1="400" y1="200" x2="350" y2="250" stroke="#3498db" stroke-width="2"/>
+                            <text x="320" y="265" text-anchor="middle" font-size="12" font-weight="bold">Methode</text>
+                            
+                            <line x1="600" y1="200" x2="550" y2="150" stroke="#3498db" stroke-width="2"/>
+                            <text x="520" y="140" text-anchor="middle" font-size="12" font-weight="bold">Milieu</text>
+                            
+                            <line x1="600" y1="200" x2="550" y2="250" stroke="#3498db" stroke-width="2"/>
+                            <text x="520" y="265" text-anchor="middle" font-size="12" font-weight="bold">Messung</text>
+                            
+                            <!-- Problemfeld -->
+                            <rect x="705" y="185" width="90" height="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                            <text x="750" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Problem</text>
+                        </svg>
+                    </div>
+                    <div class="grid">
+                        <div class="form-group">
+                            <label>Mensch-Ursachen:</label>
+                            <textarea id="humanCauses" placeholder="Schulung, Motivation, Erfahrung..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Maschine-Ursachen:</label>
+                            <textarea id="machineCauses" placeholder="Wartung, Kalibrierung, Verschleiß..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Material-Ursachen:</label>
+                            <textarea id="materialCauses" placeholder="Qualität, Lieferant, Spezifikation..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Methode-Ursachen:</label>
+                            <textarea id="methodCauses" placeholder="Prozess, Verfahren, Standards..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Milieu-Ursachen:</label>
+                            <textarea id="environmentCauses" placeholder="Temperatur, Feuchtigkeit, Sauberkeit..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Messung-Ursachen:</label>
+                            <textarea id="measurementCauses" placeholder="Genauigkeit, Kalibrierung, Verfahren..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Hypothesen & Statistische Tests</h3>
+                    <div class="grid">
+                        <div>
+                            <div class="form-group">
+                                <label>Haupthypothese:</label>
+                                <textarea id="mainHypothesis" placeholder="H0: Es gibt keinen Unterschied zwischen..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Alternativhypothese:</label>
+                                <textarea id="altHypothesis" placeholder="H1: Es gibt einen signifikanten Unterschied..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Signifikanzniveau (α):</label>
+                                <select id="alphaLevel">
+                                    <option value="0.05">0.05 (5%)</option>
+                                    <option value="0.01">0.01 (1%)</option>
+                                    <option value="0.10">0.10 (10%)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>Geplante Tests:</label>
+                                <div style="margin: 10px 0;">
+                                    <label><input type="checkbox" id="ttest"> t-Test</label><br>
+                                    <label><input type="checkbox" id="anova"> ANOVA</label><br>
+                                    <label><input type="checkbox" id="chiSquare"> Chi-Quadrat-Test</label><br>
+                                    <label><input type="checkbox" id="correlation"> Korrelationsanalyse</label><br>
+                                    <label><input type="checkbox" id="regression"> Regressionsanalyse</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pareto-Analyse</h3>
+                    <div class="grid">
+                        <div>
+                            <h4>Ursachen-Kategorien</h4>
+                            <div id="paretoCategories">
+                                <div class="form-group">
+                                    <label>Kategorie 1:</label>
+                                    <input type="text" placeholder="Ursache" style="width: 60%; margin-right: 10px;">
+                                    <input type="number" placeholder="Häufigkeit" style="width: 35%;">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="addParetoCategory()">Kategorie hinzufügen</button>
+                        </div>
+                        <div>
+                            <div class="metric-card">
+                                <h4>80/20 Regel</h4>
+                                <div class="metric-value" id="paretoTop">--</div>
+                                <p>Top Ursachen (80% der Probleme)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMPROVE Phase -->
+            <div id="improve" class="tab-pane">
+                <h2 class="section-title">Improve Phase</h2>
+                
+                <div class="card">
+                    <h3>Verbesserungsstrategien</h3>
+                    <div class="grid">
+                        <div>
+                            <div class="form-group">
+                                <label>Brainstorming Methode:</label>
