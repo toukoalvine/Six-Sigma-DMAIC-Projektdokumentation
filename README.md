@@ -45,3 +45,4 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 
 streamlit run streamlit_app.py
+
