@@ -36,13 +36,11 @@ This is a Streamlit-based web application for interactive data analysis and auto
 1. Clone the repository:
    ```bash
    git clone https://github.com/toukoalvine/Six-Sigma-DMAIC-Projektdokumentation.git
-   cd your-repo-name
+   cd Six-Sigma-DMAIC-Projektdokumentation
+source /home/adminuser/venv/bin/activate
+pip install plotly
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
 
 streamlit run streamlit_app.py
 
