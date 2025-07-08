@@ -693,4 +693,4 @@ elif phase == "📏 Measure":
             st.error(f"Verbesserungsbedarf ({sigma_level:.1f})")
     
     # Save baseline data
-    st.session_state.project_data.
+    st.session_state.project_data
