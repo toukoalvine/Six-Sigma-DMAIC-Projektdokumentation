@@ -1,5 +1,3 @@
-# Six-Sigma-DMAIC-Projektdokumentation
-interactive web app with all the key Six Sigma tools and automated report generation
 # Six Sigma DMAIC Projekt-Dokumentationspaket
 
 Ein umfassendes Streamlit-Dashboard für Six Sigma DMAIC-Projekte mit vollständiger Dokumentation und Berichterstellung.
@@ -195,18 +193,63 @@ Die Anwendung ist modular aufgebaut und kann leicht erweitert werden:
 
 ### Häufige Probleme
 
+**Problem**: `ModuleNotFoundError: No module named 'plotly'`
+- **Lösung**: Installieren Sie die fehlenden Dependencies:
+  ```bash
+  pip install plotly>=5.15.0
+  # oder alle Requirements auf einmal:
+  pip install -r requirements.txt
+  ```
+
 **Problem**: Anwendung startet nicht
-- **Lösung**: Überprüfen Sie die Python-Version und installierte Packages
+- **Lösung**: 
+  1. Überprüfen Sie die Python-Version (3.8+)
+  2. Installieren Sie alle Requirements: `pip install -r requirements.txt`
+  3. Aktivieren Sie die virtuelle Umgebung falls verwendet
 
 **Problem**: Diagramme werden nicht angezeigt
-- **Lösung**: Stellen Sie sicher, dass Plotly korrekt installiert ist
+- **Lösung**: Stellen Sie sicher, dass Plotly korrekt installiert ist:
+  ```bash
+  pip install plotly matplotlib seaborn
+  ```
 
 **Problem**: PDF-Export funktioniert nicht
-- **Lösung**: Überprüfen Sie die ReportLab-Installation
+- **Lösung**: Überprüfen Sie die ReportLab-Installation:
+  ```bash
+  pip install reportlab>=4.0.0
+  ```
+
+**Problem**: Import-Fehler bei anderen Modulen
+- **Lösung**: Installieren Sie alle Requirements neu:
+  ```bash
+  pip uninstall -r requirements.txt -y
+  pip install -r requirements.txt
+  ```
+
+### Schnelle Lösung für Streamlit Cloud/Deployment
+Falls Sie die App in Streamlit Cloud deployen:
+1. Stellen Sie sicher, dass `requirements.txt` im Root-Verzeichnis liegt
+2. Überprüfen Sie, dass alle Paketnamen korrekt geschrieben sind
+3. Verwenden Sie die neueste Python-Version (3.8+)
 
 ### Logs und Debugging
 ```bash
 streamlit run app.py --logger.level debug
+```
+
+### Virtuelle Umgebung neu erstellen
+```bash
+# Alte Umgebung löschen
+rm -rf venv
+
+# Neue Umgebung erstellen
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# oder
+venv\Scripts\activate     # Windows
+
+# Requirements installieren
+pip install -r requirements.txt
 ```
 
 ## 📞 Support
