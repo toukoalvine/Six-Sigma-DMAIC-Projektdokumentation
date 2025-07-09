@@ -79,7 +79,8 @@ Diese Anwendung bietet eine vollständige Lösung für die Dokumentation und Ver
 1. **Repository klonen oder Code herunterladen**
    ```bash
    git clone https://github.com/toukoalvine/Six-Sigma-DMAIC-Projektdokumentation
-   cd six-sigma-dmaic-projektdokumentation
+   cd Six-Sigma-DMAIC-Projektdokumentation
+
    ```
 
 2. **Virtuelle Umgebung erstellen (empfohlen)**
