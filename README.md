@@ -53,16 +53,33 @@ Diese Anwendung bietet eine vollständige Lösung für die Dokumentation und Ver
 
 ## 🚀 Installation
 
-### Voraussetzungen
+### Für Streamlit Cloud (Empfohlen)
+1. **Repository in Streamlit Cloud deployen**
+   - Gehen Sie zu [share.streamlit.io](https://share.streamlit.io)
+   - Verbinden Sie Ihr GitHub-Repository
+   - Stellen Sie sicher, dass `requirements.txt` im Root-Verzeichnis liegt
+   - Die App wird automatisch deployed
+
+2. **Wichtige Dateien für Streamlit Cloud**
+   ```
+   your-repo/
+   ├── streamlit_app.py      # Haupt-App-Datei
+   ├── requirements.txt      # Dependencies
+   └── README.md            # Diese Datei
+   ```
+
+### Für lokale Entwicklung
+
+#### Voraussetzungen
 - Python 3.8 oder höher
 - pip (Python Package Manager)
 
-### Schritt-für-Schritt Installation
+#### Schritt-für-Schritt Installation
 
 1. **Repository klonen oder Code herunterladen**
    ```bash
    git clone https://github.com/toukoalvine/Six-Sigma-DMAIC-Projektdokumentation
-   cd Six-Sigma-DMAIC-Projektdokumentation
+   cd six-sigma-dmaic-projektdokumentation
    ```
 
 2. **Virtuelle Umgebung erstellen (empfohlen)**
@@ -83,7 +100,7 @@ Diese Anwendung bietet eine vollständige Lösung für die Dokumentation und Ver
 
 4. **Anwendung starten**
    ```bash
-   streamlit run app.py
+   streamlit run streamlit_app.py
    ```
 
 5. **Browser öffnen**
@@ -193,7 +210,27 @@ Die Anwendung ist modular aufgebaut und kann leicht erweitert werden:
 
 ### Häufige Probleme
 
-**Problem**: `ModuleNotFoundError: No module named 'plotly'`
+**Problem**: `ModuleNotFoundError: No module named 'plotly'` in Streamlit Cloud
+- **Lösung**: 
+  1. Stellen Sie sicher, dass `requirements.txt` im Root-Verzeichnis liegt
+  2. Überprüfen Sie den Inhalt von `requirements.txt`:
+     ```
+     streamlit
+     pandas
+     numpy
+     plotly
+     matplotlib
+     seaborn
+     scipy
+     reportlab
+     openpyxl
+     pillow
+     python-dateutil
+     ```
+  3. Reboot der App in Streamlit Cloud (Hamburger-Menü → Reboot)
+  4. Bei persistenten Problemen: GitHub-Repository synchronisieren
+
+**Problem**: `ModuleNotFoundError: No module named 'plotly'` lokal
 - **Lösung**: Installieren Sie die fehlenden Dependencies:
   ```bash
   pip install plotly>=5.15.0
