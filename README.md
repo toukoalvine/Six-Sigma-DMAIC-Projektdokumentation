@@ -96,6 +96,7 @@ Diese Anwendung bietet eine vollständige Lösung für die Dokumentation und Ver
 
 3. **Dependencies installieren**
    ```bash
+   pip install plotly
    pip install -r requirements.txt
    ```
 
