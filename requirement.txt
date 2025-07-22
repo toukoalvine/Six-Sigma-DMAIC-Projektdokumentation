@@ -382,7 +382,6 @@ CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--timeout", "120",
 pandas>=2.0.0
 plotly>=5.15.0
 numpy
-plotly
 matplotlib
 seaborn
 scipy
