@@ -53,13 +53,6 @@ Diese Anwendung bietet eine vollständige Lösung für die Dokumentation und Ver
 
 ## 🚀 Installation
 
-### Für Streamlit Cloud (Empfohlen)
-1. **Repository in Streamlit Cloud deployen**
-   - Gehen Sie zu [share.streamlit.io](https://share.streamlit.io)
-   - Verbinden Sie Ihr GitHub-Repository
-   - Stellen Sie sicher, dass `requirements.txt` im Root-Verzeichnis liegt
-   - Die App wird automatisch deployed
-
 2. **Wichtige Dateien für Streamlit Cloud**
    ```
    your-repo/
@@ -84,28 +77,26 @@ Diese Anwendung bietet eine vollständige Lösung für die Dokumentation und Ver
    ```
 
 2. **Virtuelle Umgebung erstellen (empfohlen)**
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# macOS / Linux
+source venv/bin/activate
+
+
+4. **Dependencies installieren**
    ```bash
-   python -m venv venv
-   
-   # Windows
-   venv\Scripts\activate
-   
-   # macOS/Linux
-   source venv/bin/activate
+  pip install -r requirements.txt
    ```
 
-3. **Dependencies installieren**
-   ```bash
-   pip install plotly
-   pip install -r requirements.txt
-   ```
-
-4. **Anwendung starten**
+5. **Anwendung starten**
    ```bash
    streamlit run streamlit_app.py
    ```
 
-5. **Browser öffnen**
+6. **Browser öffnen**
    Die Anwendung läuft standardmäßig auf `http://localhost:8501`
 
 ## 📊 Verwendung
